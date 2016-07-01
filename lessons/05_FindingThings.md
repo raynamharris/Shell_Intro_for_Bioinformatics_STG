@@ -169,8 +169,20 @@ $ history | grep "pwd"
 2. How many times did you use the pipe today?
 3. How many times did you look at the contents of a directory today?
 
-# 
 Moral of the story: Most of what we do at the command line is navigate directories with `cd` and `ls`. 
+
+# gerp in bioinformatics
+
+Rather than using wc divied by 4, we can use grep to count the number of reads in our file. Piped togetehr, this is a multistep process.
+
+~~~ {.bash}
+$ cat GM_25_S_S31_L003_R1_001_small.fastq | grep '^@K00179' | wc
+~~~
+
+I strongly recommend bookmarking [Scott's List of Unix One Liners](https://wikis.utexas.edu/display/bioiteam/Scott's+list+of+linux+one-liners) for future reference.
+
+In the meantime, lets take a look at grep in more detail.
+
 
 
 ## Proceed to the Next or Previous lesson

@@ -11,40 +11,43 @@ The **word count** command  `wc <filename>` counts the number of lines, words, a
 To count the number of lines, words, and characters in our fastq.gz files, let's run the  command `wc SRR534005_01_R1.fastq`.
 
 ~~~ {.bash}
-$ wc SRR534005_01_R1.fastq
+$ wc GM_25_S_S31_L003_R1_001_small.fastq
 ~~~
+We see that there are 400 files in the file. Since there are 4 lines per read, we know that we have 100 reads in this sample.
+
 ~~~ {.output}
-     400     500   26200 SRR534005_01_R1.fastq
+     400     500   35873 GM_25_S_S31_L003_R1_001_small.fastq
 ~~~
 
 This tells us there there are 400 lines, 500 words, and 26200 characters in this file
 
 ## * 
-A `*` is known as a wildcard, and it matches zero or more characters. In this directory, `human*` would match `human_01_R1.fastq.gz` and `human_02_R1.fastq.gz`. Another example is that `*R2.fastq.gz` would match all the read 2s (aka R2) that are zipped.
+A `*` is known as a wildcard, and it matches zero or more characters. In this directory, `GM*` would match all the reads from GM cells. Another example is that `*R2.fastq` would match all the 2nd pairs of the paired-end reads (aka R2).
 
-A `?` is also a wildcard, but it only matches a single character. This could be useful for capturing both read 1 and read 2 for a particular sample. For example,  `SRR534005_01_R?.fastq.gz` would match `SRR534005_01_R1.fastq.gz` and `SRR534005_01_R2.fastq.gz`
+A `?` is also a wildcard, but it only matches a single character. This could be useful for capturing both read 1 and read 2 for a particular sample. For example,  `GM_2?_S_S31_L003_R1_001_small.fastq` would match `GM_25_S_S31_L003_R1_001_small.fastq` and `GM_26_S_S32_L003_R1_001_small.fastq`
 
 When the shell sees a wildcard, it expands the wildcard to create a list of matching filenames *before* running the command that was asked for. 
 
 Let's try this with a new command.
 
-## gunzip
-
-Since fastq.gz files are in binary, we can't read them. Let's unzip these files using the command `gunzip` followed by the file name. We can either give a single file, or we can use wildcards to unzip multiple files at once.
-
-~~~ {.bash}
-$ gunzip SRR534005_01_R2.fastq.gz
-$ ls
-$ gunzip *.gz
-$ ls
-~~~
-
 ## wc (continued)
 
-Now that we've unzipped our files. Let's revisit wc
+Let's revisit `wc` and count all the lines in our files
 
 ~~~ {.bash}
 $ wc *.fastq
+~~~
+
+~~~ {.output}
+     400     500   35873 GM_25_S_S31_L003_R1_001_small.fastq
+     400     500   35873 GM_25_S_S31_L003_R2_001_small.fastq
+     100     125    8968 GM_26_S_S32_L003_R1_001_small.fastq
+     100     125    8968 GM_26_S_S32_L003_R2_001_small.fastq
+     200     250   17941 PD_10_S_S27_L003_R1_001_small.fastq
+     200     250   17941 PD_10_S_S27_L003_R2_001_small.fastq
+     300     375   26912 PD_11_S_S28_L003_R1_001_small.fastq
+     300     375   26912 PD_11_S_S28_L003_R2_001_small.fastq
+    2000    2500  179388 total
 ~~~
 
 ### wc -l 
@@ -53,6 +56,18 @@ We can add the flag `-l` to return just the number of lines
 
 ~~~ {.bash}
 $ wc -l *.fastq
+~~~
+
+~~~ {.output}
+     400 GM_25_S_S31_L003_R1_001_small.fastq
+     400 GM_25_S_S31_L003_R2_001_small.fastq
+     100 GM_26_S_S32_L003_R1_001_small.fastq
+     100 GM_26_S_S32_L003_R2_001_small.fastq
+     200 PD_10_S_S27_L003_R1_001_small.fastq
+     200 PD_10_S_S27_L003_R2_001_small.fastq
+     300 PD_11_S_S28_L003_R1_001_small.fastq
+     300 PD_11_S_S28_L003_R2_001_small.fastq
+    2000 total
 ~~~
 
 ### wc -w 
@@ -117,20 +132,6 @@ $ wc *.fastq | sort -n | head
 ~~~ {.bash}
 $ wc *.fastq | sort -n | head -1
 ~~~
-
-# BONUS: Scott's list of UNIX one liner's
-
-Are you beginning to see how this is useful?  You can string together many commands to answer specific questions. 
-
-For instance, to answer "Are there any unusually abundance sequences in my human_rnaseq.fastq file?", we could execute this one liner
-
-~~~ {.bash}
-$ head -100000 yeast_01_R1.fastq | grep -A 1 '^@HWI' | grep -v '^@HWI' | sort | uniq -c | sort -n -r | head
-~~~
-
-I strongly recommend bookmarking [Scott's List of Unix One Liners](https://wikis.utexas.edu/display/bioiteam/Scott's+list+of+linux+one-liners) for future reference.
-
-In the meantime, lets take a look at grep in more detail.
 
 
 ## Proceed to the Next and Previous lessons

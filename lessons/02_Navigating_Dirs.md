@@ -29,8 +29,7 @@ Next, let’s find out where we are by running a command called `pwd` which stan
 $ pwd
 ~~~
 ~~~ {.output}
-rmharris@CNS-FAC101BP16 ~
-/c/Users/rmharris
+/Users/raynamharris
 ~~~
 
 This is your **home directory**. To understand what a  home directory  is, let's have a look at how the file system as a whole is organized. For the sake of example, we'll be illustrating the filesystem on our scientist Nelle's computer. After this illustration, you'll be learning commands to explore your own filesystem, which will be constructed in a similar way, but not be exactly identical.
@@ -47,8 +46,7 @@ If we want to see the contents of our own filesystem, we cannot simply double cl
 ~~~ {.bash}
 $ ls
 ~~~
-~~~ {.output}
-DataForUnixCourse	             
+~~~ {.output}             
 Desktop			 
 Downloads
 Music   
@@ -100,7 +98,7 @@ drwxr-xr-x   2 raynamharris  staff    68B Feb  8 16:55 GoPro
 ~~~
 
 ~~~ {.bash}
-$ ls -tlh Desktop/DataForUnixCourse
+$ ls -tlh Desktop/FilesForUnixCourse-STG-master
 ~~~
 
 ~~~ {.output}
@@ -118,12 +116,7 @@ In order to move into the directory "DataForUnixCourse" that we just downloaded 
 
 ~~~ {.bash}
 $ cd Desktop
-$ cd DataForUnixCourse
-~~~
-
-~~~ {.bash}
-rmharris@CNS-FAC101BP16 ~/Desktop/DataForUnixCourse
-$ 
+$ cd FilesForUnixCourse-master
 ~~~
 
 These two commands moved us from our home directory onto our Desktop, then into Shell_Transcriptomics. But, the `cd` command doesn't give an output, so we are left with and empty prompt or `$`.
@@ -135,7 +128,7 @@ $ pwd
 ~~~
 
 ~~~ {.output}
-c/Users/raynamharris/Desktop/DataForUnixCourse
+/Users/raynamharris/Desktop/FilesForUnixCourse-STG-master
 ~~~
 
 And now we can type `ls` to see the contents
@@ -145,18 +138,13 @@ $ ls
 ~~~
 
 ~~~ {.output}
-SRR534005_01_R1.fastq
-SRR534005_01_R2.fastq.gz
-SRR534005_02_R1.fastq.gz
-SRR534005_02_R2.fastq.gz
-SRR534005_03_R1.fastq.gz
-SRR534005_03_R2.fastq.gz
-human_01_R1.fastq.gz
-human_02_R1.fastq.gz
-yeast_01_R1.fastq.gz
-yeast_01_R2.fastq.gz
-yeast_02_R1.fastq.gz
-yeast_02_R2.fastq.gz
+GM_25_S_S31_L003_R1_001_small.fastq
+GM_25_S_S31_L003_R2_001_small.fastq
+GM_26_S_S32_L003_R1_001_small.fastq
+GM_26_S_S32_L003_R2_001_small.fastq
+PD_10_S_S27_L003_R1_001_small.fastq
+PD_10_S_S27_L003_R2_001_small.fastq
+PD_11_S_S28_L003_R1_001_small.fastq
 ~~~
 
 ## Relative vs Full Paths
@@ -207,11 +195,11 @@ $ cd ~/Downloads
 $ cd ~/Pictures
 ~~~
 
-**2. Navigate to your "data" directory. Next navigate to your "Desktop" using relative commands.**
+**2. Navigate to your "data" subdirectory. Next navigate to your "Desktop" using relative commands.**
 
 One solution
 ~~~ {.bash}
-$ cd ~/Desktop/DataForUnixCourse/data
+$ cd ~/Desktop/FileForUnixCourse-STG-master/data
 $ cd ../..
 ~~~
 

@@ -132,37 +132,6 @@ $ ls ../results
 $ cat ../results/yeast_01_R1-wordcount.txt 
 ~~~
 
-## bash overrepresented.sh
-
-So, renaming things may or may not be that exciting to you. Let's replace wordcount with something more complex, like Scott's one liner. Remember it? 
-
-~~~ 
-head -100000 yeast_01_R1.fastq | grep -A 1 '^@HWI' | grep -v '^@HWI' | sort | uniq -c | sort -n -r | head
-~~~
-
-To create `overrepresnted.sh`, we will make 2 modifications to the `wordcount.sh` script:
-1. replace wordcount.txt with overrepresented.txt
-2. replace `wc` with `head -100000` then paste `| grep -A 1 '^@HWI' | grep -v '^@HWI' | sort | uniq -c | sort -n -r | head >> ../results/${output}` after `${file}`
-
-Optional, you can use `>` to overwrite this file everytime you rerun the script, or `>>` to save the result every time you run this command.
-
-~~~
-for file in ../data/${@}
-do
-	output=$(basename ${file} .fastq)-overrepresented.txt 
-	head -100000 ${file} | grep -A 1 '^@HWI' | grep -v '^@HWI' | sort | uniq -c | sort -n -r | head >> ../results/${output}
-done
-~~~
-
-Now, let execute this new script and look at the results
-
-~~~ {.bash}
-$ bash overrepresented.sh *R1.fastq
-$ ls ../results
-$ cat ../results/yeast_01_R1-wordcount.txt 
-~~~
-
-
 
 
 ## Proceed Previous lesson
