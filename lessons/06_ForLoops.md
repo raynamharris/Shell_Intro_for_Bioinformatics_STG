@@ -192,6 +192,19 @@ do something to PD_10_S_S27_L003_R1_001_small.fastq and to PD_10_S_S27_L003_R2_0
 do something to PD_11_S_S28_L003_R1_001_small.fastq and to PD_11_S_S28_L003_R2_001_small.fastq as well
 ~~~
 
+## Using for loops to run fastq 
+
+The general structure for fastqc is `fastqc <filename>`. The outputs are `<filename>c.html` and `<filename>c.zip`.
+
+A for loop to gereate a list of commands for fastq looks like this. 
+
+~~~ {.bash}
+for file in *.fastq
+do
+   echo "fastqc $file" 
+done
+~~~
+
 ## Using for loops to run Trimmomatic
 
 Here is the general structure for the Trimmomatic command for paried end reads.
@@ -249,7 +262,7 @@ java -jar /work/02189/rmharris/IntMolModule/STG/practiceData/Trimmomatic-0.36 PE
 Now, we can copy and past this into a commands file. You can save this as a text file, but you can also save it with the `.cmds` extension which is a common way to identify files that contain a list of commands. 
 
 ~~~ {.bash}
-rm trimmomaticcommands.cmds
+rm trimmomatic.cmds
 for R1 in *R1*
 do
    R2=${R1//R1_001_small.fastq/R2_001_small.fastq}
@@ -257,14 +270,25 @@ do
    R1unpaired=${R1//.fastq/_unpaired.fastq.gz}	
    R2paired=${R2//.fastq/_paired.fastq.gz}
    R2unpaired=${R2//.fastq/_unpaired.fastq.gz}	
-   echo "java -jar $WORK/IntMolModule/STG/practiceData/Trimmomatic-0.36 PE -threads 32 -phred33 $R1 $R2 $R1paired $R1unpaired $R2paired $R2unpaired" >> trimmomaticcommands.cmds
+   echo "java -jar $WORK/IntMolModule/STG/practiceData/Trimmomatic-0.36/trimmomatic-0.36.jar PE -threads 32 -phred33 $R1 $R2 $R1paired $R1unpaired $R2paired $R2unpaired" >> trimmomatic.cmds
 done
-cat trimmomaticcommands.cmds
+cat trimmomatic.cmds
 ~~~ 
 
-It is good practie to add a line to remove any .cmds file that might be there already so we dont' apppend.
+It is good practice to add a line to remove any .cmds file that might be there already so we dont' apppend.
 
-Now, who can we exectue this file?
+We can also do the same thing for the fastqc for loop.
+
+~~~ {.bash}
+rm fastqc.cmds
+for file in *.fastq
+do
+   echo "fastqc $file" >> fastqc.cmds
+done
+~~~
+
+
+Now, who can we exectue these file?
 
 
 ## Proceed to the Previous lesson
